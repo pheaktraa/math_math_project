@@ -181,31 +181,46 @@ function updateShiftedAlphabet() {
 //     updateShiftedAlphabet();
 // }
 
+
+
+
+
 // Caesar Cipher Implementation
 // Shift value of 3 (classic Caesar cipher)
-const SHIFT = 3;
+// const SHIFT = 3;
+
+
+function getShift() {
+  const shift = parseInt(document.getElementById('caesar-shift').value);
+  return (isNaN(shift) || shift < 0 || shift > 25) ? 3 : shift; // default fallback
+}
+
 
 // Wrapper functions for HTML buttons
 function encryptCaesar() {
     // Get input from the message textarea
     const inputText = document.getElementById('caesar-message').value;
-    const result = caesarEncrypt(inputText);
+    const shift = getShift();
+    const result = caesarEncrypt(inputText, shift);
     // Display result in the result textarea
     document.getElementById('caesar-result').value = result;
+    // updateShiftedAlphabet(shift); // optional, if showing shifted alphabet
     console.log('Encrypting:', inputText, '-> Result:', result); // Debug line
 }
 
 function decryptCaesar() {
     // Get input from the message textarea
     const inputText = document.getElementById('caesar-message').value;
-    const result = caesarDecrypt(inputText);
+    const shift = getShift();
+    const result = caesarDecrypt(inputText, shift);
     // Display result in the result textarea
     document.getElementById('caesar-result').value = result;
+    //  updateShiftedAlphabet((26 - shift) % 26); // optional for visual
     console.log('Decrypting:', inputText, '-> Result:', result); // Debug line
 }
 
 // Function to encrypt text using Caesar cipher
-function caesarEncrypt(text) {
+function caesarEncrypt(text, shift) {
     // Convert entire text to uppercase first
     text = text.toUpperCase();
     let result = '';
@@ -218,7 +233,7 @@ function caesarEncrypt(text) {
             // Convert to number (A=0, B=1, ..., Z=25)
             let charCode = char.charCodeAt(0) - 'A'.charCodeAt(0);
             // Add shift and use modulo 26
-            let shiftedCode = (charCode + SHIFT) % 26;
+            let shiftedCode = (charCode + shift) % 26;
             // Convert back to letter
             let encryptedChar = String.fromCharCode(shiftedCode + 'A'.charCodeAt(0));
             result += encryptedChar;
@@ -233,7 +248,7 @@ function caesarEncrypt(text) {
 }
 
 // Function to decrypt text using Caesar cipher
-function caesarDecrypt(text) {
+function caesarDecrypt(text, shift) {
     // Convert entire text to uppercase first
     text = text.toUpperCase();
     let result = '';
@@ -246,7 +261,7 @@ function caesarDecrypt(text) {
             // Convert to number (A=0, B=1, ..., Z=25)
             let charCode = char.charCodeAt(0) - 'A'.charCodeAt(0);
             // Subtract shift and use modulo 26 (add 26 to handle negative numbers)
-            let shiftedCode = (charCode - SHIFT + 26) % 26;
+            let shiftedCode = (charCode - shift + 26) % 26;
             // Convert back to letter
             let decryptedChar = String.fromCharCode(shiftedCode + 'A'.charCodeAt(0));
             result += decryptedChar;

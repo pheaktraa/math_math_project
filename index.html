@@ -114,7 +114,8 @@
     </section>
 
     <!-- Documentation Section -->
-    <section id="docs" class="py-20 bg-black bg-opacity-30">
+     <!-- <section id="docs" class="py-20 bg-black bg-opacity-30"> -->
+    <section id="docs" class="py-20">
         <div class="container mx-auto px-6">
             <h2 data-aos="fade-up" data-aos-duration="500"
                 class="text-4xl font-bold text-center mb-12 pb-1 gradient-text">What is Cryptography?</h2>
@@ -154,6 +155,76 @@
                 </div>
             </div>
         </div>
+    </section>
+
+    <!-- Shift Cipher Section -->
+    <!-- <section id="shift-cipher" class="py-20 bg-black bg-opacity-30"> -->
+    <section id="shift-cipher" class="py-20">
+        <div class="container mx-auto px-6">
+            <h2 data-aos="fade-up" data-aos-duration="500" class="text-4xl font-bold text-center mb-12 gradient-text">
+                Shift Cipher (Caesar Cipher)</h2>
+            <div class="max-w-6xl mx-auto">
+                <div data-aos="fade-up" data-aos-duration="500" class="glass-effect p-8 rounded-lg mb-8">
+                    <p class="text-lg leading-relaxed mb-4">
+                        The Caesar cipher, also known as a shift cipher, is one of the simplest and most widely known
+                        encryption techniques.
+                        It is a type of substitution cipher in which each letter in the plaintext is replaced by a
+                        letter some fixed number of positions down the alphabet.
+                    </p>
+                    <p class="text-lg leading-relaxed">
+                        For example, with a shift of 3, A would be encoded as D, B would become E, and so on.
+                        This cipher is named after Julius Caesar, who allegedly used it in his private correspondence.
+                    </p>
+                </div>
+
+                <div data-aos="fade-up" data-aos-duration="500" class="glass-effect p-8 rounded-lg">
+                    <h3 class="text-2xl font-semibold mb-6 text-crypto-accent">Caesar Cipher Tool</h3>
+                    <div class="grid md:grid-cols-2 gap-8">
+                        <div>
+                            <div class="space-y-4">
+                                <div>
+                                    <label class="block text-sm font-medium mb-2">Message:</label>
+                                    <textarea id="caesar-message" rows="4"
+                                        class="w-full p-3 bg-gray-800 rounded border border-gray-600 focus:border-crypto-accent focus:outline-none resize-none"
+                                        placeholder="Enter your message here..."></textarea>
+                                </div>
+                                <div>
+                                     <label class="block text-sm font-medium mb-2">Shift Value (number):</label>
+                                    <input type="" id="caesar-shift" min="0" max="25" value="3"
+                                        class="w-full p-3 bg-gray-800 rounded border border-gray-600 focus:border-crypto-accent focus:outline-none">
+                                </div>
+                                <div class="grid grid-cols-2 gap-4">
+                                    <button onclick="encryptCaesar()"
+                                        class="bg-green-600 text-white font-semibold py-3 rounded hover:bg-green-500 transition-colors">
+                                        Encrypt
+                                    </button>
+                                    <button onclick="decryptCaesar()"
+                                        class="bg-red-600 text-white font-semibold py-3 rounded hover:bg-red-500 transition-colors">
+                                        Decrypt
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <div>
+                                <label class="block text-sm font-medium mb-2">Result:</label>
+                                <textarea id="caesar-result" rows="4"
+                                    class="w-full p-3 bg-gray-800 rounded border border-gray-600 resize-none" readonly
+                                    placeholder="Result will appear here..."></textarea>
+                            </div>
+                            <div class="mt-4 p-4 bg-gray-800 rounded">
+                                <h4 class="font-semibold mb-2">Alphabet Reference:</h4>
+                                <div class="text-sm space-y-1">
+                                    <div>Original: A B C D E F G H I J K L M N O P Q R S T U V W X Y Z</div>
+                                    <div id="shifted-alphabet">Shifted: A B C D E F G H I J K L M N O P Q R S T U V W X
+                                        Y Z</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            </div>
     </section>
 
     <!-- RSA Section -->
@@ -227,76 +298,6 @@
                 </div>
             </div>
         </div>
-    </section>
-
-    <!-- Shift Cipher Section -->
-    <section id="shift-cipher" class="py-20 bg-black bg-opacity-30">
-        <div" class="container mx-auto px-6">
-            <h2 data-aos="fade-up" data-aos-duration="500" class="text-4xl font-bold text-center mb-12 gradient-text">
-                Shift Cipher (Caesar Cipher)</h2>
-            <div class="max-w-6xl mx-auto">
-                <div data-aos="fade-up" data-aos-duration="500" class="glass-effect p-8 rounded-lg mb-8">
-                    <p class="text-lg leading-relaxed mb-4">
-                        The Caesar cipher, also known as a shift cipher, is one of the simplest and most widely known
-                        encryption techniques.
-                        It is a type of substitution cipher in which each letter in the plaintext is replaced by a
-                        letter some fixed number of positions down the alphabet.
-                    </p>
-                    <p class="text-lg leading-relaxed">
-                        For example, with a shift of 3, A would be encoded as D, B would become E, and so on.
-                        This cipher is named after Julius Caesar, who allegedly used it in his private correspondence.
-                    </p>
-                </div>
-
-                <div data-aos="fade-up" data-aos-duration="500" class="glass-effect p-8 rounded-lg">
-                    <h3 class="text-2xl font-semibold mb-6 text-crypto-accent">Caesar Cipher Tool</h3>
-                    <div class="grid md:grid-cols-2 gap-8">
-                        <div>
-                            <div class="space-y-4">
-                                <div>
-                                    <label class="block text-sm font-medium mb-2">Message:</label>
-                                    <textarea id="caesar-message" rows="4"
-                                        class="w-full p-3 bg-gray-800 rounded border border-gray-600 focus:border-crypto-accent focus:outline-none resize-none"
-                                        placeholder="Enter your message here..."></textarea>
-                                </div>
-                                <div>
-                                    <!-- <label class="block text-sm font-medium mb-2">Shift Value (0-25):</label> -->
-                                     <label class="block text-sm font-medium mb-2">Shift Value (3):</label>
-                                    <!-- <input type="" id="caesar-shift" min="0" max="25" value="3"
-                                        class="w-full p-3 bg-gray-800 rounded border border-gray-600 focus:border-crypto-accent focus:outline-none"> -->
-                                </div>
-                                <div class="grid grid-cols-2 gap-4">
-                                    <button onclick="encryptCaesar()"
-                                        class="bg-green-600 text-white font-semibold py-3 rounded hover:bg-green-500 transition-colors">
-                                        Encrypt
-                                    </button>
-                                    <button onclick="decryptCaesar()"
-                                        class="bg-red-600 text-white font-semibold py-3 rounded hover:bg-red-500 transition-colors">
-                                        Decrypt
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                        <div>
-                            <div>
-                                <label class="block text-sm font-medium mb-2">Result:</label>
-                                <textarea id="caesar-result" rows="4"
-                                    class="w-full p-3 bg-gray-800 rounded border border-gray-600 resize-none" readonly
-                                    placeholder="Result will appear here..."></textarea>
-                            </div>
-                            <div class="mt-4 p-4 bg-gray-800 rounded">
-                                <h4 class="font-semibold mb-2">Alphabet Reference:</h4>
-                                <div class="text-sm space-y-1">
-                                    <div>Original: A B C D E F G H I J K L M N O P Q R S T U V W X Y Z</div>
-                                    <div id="shifted-alphabet">Shifted: A B C D E F G H I J K L M N O P Q R S T U V W X
-                                        Y Z</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            </div>
     </section>
 
     <!-- Team Section -->
