@@ -150,22 +150,22 @@ function decryptRSA() {
 }
 
 // Caesar Cipher
-function caesarShift(text, shift, encrypt = true) {
-    if (!encrypt) shift = -shift;
-    return text.replace(/[a-zA-Z]/g, function(char) {
-        const start = char <= 'Z' ? 65 : 97;
-        return String.fromCharCode(((char.charCodeAt(0) - start + shift + 26) % 26) + start);
-    });
-}
+// function caesarShift(text, shift, encrypt = true) {
+//     if (!encrypt) shift = -shift;
+//     return text.replace(/[a-zA-Z]/g, function(char) {
+//         const start = char <= 'Z' ? 65 : 97;
+//         return String.fromCharCode(((char.charCodeAt(0) - start + shift + 26) % 26) + start);
+//     });
+// }
 
-function updateShiftedAlphabet() {
-    const shift = parseInt(document.getElementById('caesar-shift').value) || 0;
-    const original = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-    const shifted = original.split('').map(char => 
-        String.fromCharCode(((char.charCodeAt(0) - 65 + shift) % 26) + 65)
-    ).join(' ');
-    document.getElementById('shifted-alphabet').textContent = `Shifted:  ${shifted}`;
-}
+// function updateShiftedAlphabet() {
+//     const shift = parseInt(document.getElementById('caesar-shift').value) || 0;
+//     const original = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+//     const shifted = original.split('').map(char => 
+//         String.fromCharCode(((char.charCodeAt(0) - 65 + shift) % 26) + 65)
+//     ).join(' ');
+//     document.getElementById('shifted-alphabet').textContent = `Shifted:  ${shifted}`;
+// }
 
 // function encryptCaesar() {
 //     const message = document.getElementById('caesar-message').value;
@@ -180,6 +180,10 @@ function updateShiftedAlphabet() {
 //     document.getElementById('caesar-result').value = encrypted;
 //     updateShiftedAlphabet();
 // }
+
+
+//RSA text book
+
 
 
 
