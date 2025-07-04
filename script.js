@@ -111,7 +111,7 @@ function generateRSAKeys() {
 
 function encryptRSA() {
     if (!rsaKeys.n) {
-        document.getElementById('rsa-result').innerHTML = '<p class="text-red-400">Please generate RSA keys first!</p>';
+        document.getElementById('rsa-result-text').innerHTML = '<p class="text-red-400">Please generate RSA keys first!</p>';
         return;
     }
 
