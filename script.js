@@ -74,23 +74,23 @@ function generateRSAKeys() {
 
     const n = p * q;
     const phi = (p - 1) * (q - 1);
-    
-    // Find e (commonly 65537 or 3)
+
+    // Find e (commonly 65537, but only if valid)
     let e = 65537;
-    if (gcd(e, phi) !== 1) {
+    if (e >= phi || gcd(e, phi) !== 1) {
+        // Find the smallest odd e > 2 such that gcd(e, phi) == 1
         e = 3;
-        if (gcd(e, phi) !== 1) {
-            for (let i = 3; i < phi; i += 2) {
-                if (gcd(i, phi) === 1) {
-                    e = i;
-                    break;
-                }
-            }
+        while (e < phi && gcd(e, phi) !== 1) {
+            e += 2;
+        }
+        // If no valid e found, show error
+        if (e >= phi) {
+            document.getElementById('rsa-keys').innerHTML = '<p class="text-red-400">Could not find a valid public exponent e!</p>';
+            return;
         }
     }
-    
+
     const d = modInverse(e, phi);
-    
     if (!d) {
         document.getElementById('rsa-keys').innerHTML = '<p class="text-red-400">Could not generate valid keys!</p>';
         return;
@@ -100,53 +100,108 @@ function generateRSAKeys() {
 
     document.getElementById('rsa-keys').innerHTML = `
         <div class="space-y-2">
-            <p><strong>n (modulus):</strong> ${n}</p>
-            <p><strong>φ(n):</strong> ${phi}</p>
-            <p><strong>Public Key (e):</strong> ${e}</p>
-            <p><strong>Private Key (d):</strong> ${d}</p>
+            <p><strong>n : </strong> ${n}</p>
+            <p><strong>φ(n) : </strong> ${phi}</p>
+            <p><strong>Public Key (e) : </strong> ${e}</p>
+            <p><strong>Private Key (d) : </strong> ${d}</p>
             <p class="text-green-400 mt-4">✓ RSA Keys Generated Successfully!</p>
         </div>
     `;
 }
 
 function encryptRSA() {
+    // Check if RSA keys are generated
+    console.log('Checking if RSA keys are generated (needed for encryption)...');
     if (!rsaKeys.n) {
-        document.getElementById('rsa-result-text').innerHTML = '<p class="text-red-400">Please generate RSA keys first!</p>';
+        document.getElementById('rsa-encrypt-result').innerHTML = '<p class="text-red-400">Please generate RSA keys first!</p>';
         return;
     }
 
-    const message = parseInt(document.getElementById('rsa-message').value);
-    if (isNaN(message) || message >= rsaKeys.n) {
-        document.getElementById('rsa-result').innerHTML = '<p class="text-red-400">Message must be a number less than n!</p>';
+    // Get the message from user input
+    console.log('Getting message from input (this is the plaintext to encrypt)...');
+    const message = document.getElementById('rsa-encrypt-message').value;
+    if (!message) {
+        document.getElementById('rsa-encrypt-result').innerHTML = '<p class="text-red-400">Please enter a message to encrypt!</p>';
         return;
     }
 
-    const encrypted = modPow(message, rsaKeys.e, rsaKeys.n);
-    document.getElementById('rsa-result').innerHTML = `
+    // Require public key e from input
+    let eInput = document.getElementById('rsa-encrypt-e').value;
+    if (!eInput) {
+        document.getElementById('rsa-encrypt-result').innerHTML = '<p class="text-red-400">Please enter the public key (e)!</p>';
+        return;
+    }
+    let e = parseInt(eInput);
+    console.log('Using public key e for encryption:', e);
+
+    // Convert message to ASCII codes (RSA works with numbers, not text)
+    const asciiCodes = Array.from(message).map(char => char.charCodeAt(0));
+    console.log('Converted message to ASCII codes (so each character can be encrypted as a number):', asciiCodes);
+
+    // Encrypt each ASCII code using RSA formula: c = m^e mod n
+    const encrypted = asciiCodes.map(m => modPow(m, e, rsaKeys.n));
+    console.log('Encrypted each ASCII code using RSA (c = m^e mod n):', encrypted);
+
+    // Display result in the HTML (shows user what happened)
+    document.getElementById('rsa-encrypt-result').innerHTML = `
         <p><strong>Original Message:</strong> ${message}</p>
-        <p><strong>Encrypted:</strong> ${encrypted}</p>
+        <p><strong>ASCII Codes:</strong> [${asciiCodes.join(', ')}]</p>
+        <p><strong>Encrypted:</strong> [${encrypted.join(', ')}]</p>
         <p class="text-green-400">✓ Message encrypted successfully!</p>
     `;
+    console.log('Displayed the result in the HTML for the user.');
 }
 
 function decryptRSA() {
+    // Check if RSA keys are generated
+    console.log('Checking if RSA keys are generated (needed for decryption)...');
     if (!rsaKeys.n) {
-        document.getElementById('rsa-result').innerHTML = '<p class="text-red-400">Please generate RSA keys first!</p>';
+        document.getElementById('rsa-decrypt-result').innerHTML = '<p class="text-red-400">Please generate RSA keys first!</p>';
         return;
     }
 
-    const message = parseInt(document.getElementById('rsa-message').value);
-    if (isNaN(message)) {
-        document.getElementById('rsa-result').innerHTML = '<p class="text-red-400">Please enter a valid number!</p>';
+    // Get the encrypted message from user input
+    console.log('Getting encrypted message from input (should be a list of numbers)...');
+    const input = document.getElementById('rsa-decrypt-message').value;
+    if (!input) {
+        document.getElementById('rsa-decrypt-result').innerHTML = '<p class="text-red-400">Please enter the encrypted numbers to decrypt!</p>';
         return;
     }
 
-    const decrypted = modPow(message, rsaKeys.d, rsaKeys.n);
-    document.getElementById('rsa-result').innerHTML = `
-        <p><strong>Encrypted Message:</strong> ${message}</p>
-        <p><strong>Decrypted:</strong> ${decrypted}</p>
+    // Require private key d from input
+    let dInput = document.getElementById('rsa-decrypt-d').value;
+    if (!dInput) {
+        document.getElementById('rsa-decrypt-result').innerHTML = '<p class="text-red-400">Please enter the private key (d)!</p>';
+        return;
+    }
+    let d = parseInt(dInput);
+    console.log('Using private key d for decryption:', d);
+
+    // Parse the input as an array of numbers (comma or space separated)
+    const encryptedArr = input.split(/[,\s]+/).map(x => parseInt(x)).filter(x => !isNaN(x));
+    console.log('Parsed encrypted input into array of numbers:', encryptedArr);
+
+    if (encryptedArr.length === 0) {
+        document.getElementById('rsa-decrypt-result').innerHTML = '<p class="text-red-400">Invalid input! Please enter numbers separated by commas or spaces.</p>';
+        return;
+    }
+
+    // Decrypt each number using RSA formula: m = c^d mod n
+    const decryptedCodes = encryptedArr.map(c => modPow(c, d, rsaKeys.n));
+    console.log('Decrypted each number to ASCII code using RSA (m = c^d mod n):', decryptedCodes);
+
+    // Convert ASCII codes back to string
+    const decryptedMessage = String.fromCharCode(...decryptedCodes);
+    console.log('Converted ASCII codes back to string:', decryptedMessage);
+
+    // Display result in the HTML
+    document.getElementById('rsa-decrypt-result').innerHTML = `
+        <p><strong>Encrypted Input:</strong> [${encryptedArr.join(', ')}]</p>
+        <p><strong>Decrypted ASCII Codes:</strong> [${decryptedCodes.join(', ')}]</p>
+        <p><strong>Decrypted Message:</strong> ${decryptedMessage}</p>
         <p class="text-green-400">✓ Message decrypted successfully!</p>
     `;
+    console.log('Displayed the result in the HTML for the user.');
 }
 
 // Caesar Cipher
