@@ -145,8 +145,8 @@ function encryptRSA() {
     // Display result in the HTML (shows user what happened)
     document.getElementById('rsa-encrypt-result').innerHTML = `
         <p><strong>Original Message:</strong> ${message}</p>
-        <p><strong>ASCII Codes:</strong> [${asciiCodes.join(', ')}]</p>
-        <p><strong>Encrypted:</strong> [${encrypted.join(', ')}]</p>
+        <p><strong>ASCII Codes:</strong> ${asciiCodes.join(', ')}</p>
+        <p><strong>Encrypted:</strong> ${encrypted.join(', ')}</p>
         <p class="text-green-400">✓ Message encrypted successfully!</p>
     `;
     console.log('Displayed the result in the HTML for the user.');
