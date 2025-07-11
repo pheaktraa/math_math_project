@@ -1,0 +1,29 @@
+/* RGB Glow Animation for Team Member Boxes */
+.rgb-glow {
+  box-shadow: 0 0 20px rgba(0, 212, 255, 0.3);
+  animation: rgbGlow 5s ease-in-out infinite;
+}
+
+@keyframes rgbGlow {
+  0% {
+    box-shadow: 0 0 20px rgba(255, 0, 0, 0.5);
+  }
+  16.66% {
+    box-shadow: 0 0 20px rgba(255, 165, 0, 0.5);
+  }
+  33.33% {
+    box-shadow: 0 0 20px rgba(255, 255, 0, 0.5);
+  }
+  50% {
+    box-shadow: 0 0 20px rgba(0, 255, 0, 0.5);
+  }
+  66.66% {
+    box-shadow: 0 0 20px rgba(0, 0, 255, 0.5);
+  }
+  83.33% {
+    box-shadow: 0 0 20px rgba(128, 0, 128, 0.5);
+  }
+  100% {
+    box-shadow: 0 0 20px rgba(255, 0, 0, 0.5);
+  }
+}

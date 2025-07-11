@@ -1,203 +1,154 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Cryptography</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://unpkg.com/aos@next/dist/aos.css" rel="stylesheet" />
-    <script>
-      tailwind.config = {
-        theme: {
-          extend: {
-            colors: {
-              "crypto-blue": "#1a365d",
-              "crypto-dark": "#0f1419",
-              "crypto-accent": "#00d4ff",
-            },
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cryptography</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://unpkg.com/aos@next/dist/aos.css" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            "crypto-blue": "#1a365d",
+            "crypto-dark": "#0f1419",
+            "crypto-accent": "#00d4ff",
           },
         },
-      };
-    </script>
-    <style>
-      /* CSS Variables for easy customization */
-      :root {
-        /* linear-gradient(90deg, #4b6cb7 0%, #182848 100%) */
-        /* linear-gradient(90deg, #4b6cb7 0%, #182848 100%) */
-        /* --primary-gradient: linear-gradient(to right, #ddd6fe, #fbcfe8); */
-        /* --primary-gradient: linear-gradient(to top right, #06B6D4, #D946EF); */
-        --primary-gradient: linear-gradient(90deg, #4b6cb7 0%, #182848 100%);
-        --text-gradient: linear-gradient(45deg, #00d4ff, #7c3aed);
-        /* --hero-gradient: linear-gradient(to bottom right, #0f1419, #1a365d); */
-        --accent-glow: 0 0 20px rgba(0, 212, 255, 0.3);
-      }
+      },
+    };
+  </script>
+  <style>
+    /* CSS Variables for easy customization */
+    :root {
+      /* linear-gradient(90deg, #4b6cb7 0%, #182848 100%) */
+      /* linear-gradient(90deg, #4b6cb7 0%, #182848 100%) */
+      /* --primary-gradient: linear-gradient(to right, #ddd6fe, #fbcfe8); */
+      /* --primary-gradient: linear-gradient(to top right, #06B6D4, #D946EF); */
+      --primary-gradient: linear-gradient(90deg, #4b6cb7 0%, #182848 100%);
+      --text-gradient: linear-gradient(45deg, #00d4ff, #7c3aed);
+      /* --hero-gradient: linear-gradient(to bottom right, #0f1419, #1a365d); */
+      --accent-glow: 0 0 20px rgba(0, 212, 255, 0.3);
+    }
 
-      .gradient-primary {
-        background: var(--primary-gradient);
-      }
+    .gradient-primary {
+      background: var(--primary-gradient);
+    }
 
-      .gradient-text {
-        background: linear-gradient(45deg, #10d7ff, #5d00ff);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        background-clip: text;
-      }
+    .gradient-text {
+      background: linear-gradient(45deg, #10d7ff, #5d00ff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
 
-      .glass-effect {
-        backdrop-filter: blur(10px);
-        background: rgba(255, 255, 255, 0.1);
-        border: 1px solid rgba(255, 255, 255, 0.2);
-      }
+    .glass-effect {
+      backdrop-filter: blur(10px);
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+    }
 
-      .crypto-glow {
-        box-shadow: 0 0 20px rgba(0, 212, 255, 0.3);
-      }
+    .crypto-glow {
+      box-shadow: 0 0 20px rgba(0, 212, 255, 0.3);
+    }
 
-      html {
-        scroll-behavior: smooth;
-      }
-    </style>
-  </head>
+    html {
+      scroll-behavior: smooth;
+    }
+  </style>
+</head>
 
-  <body class="gradient-primary text-white">
-    <!-- Navigation -->
-    <nav class="fixed top-0 w-full z-50 glass-effect">
-      <div class="container mx-auto px-6 py-4">
-        <div class="flex justify-between items-center">
-          <!-- <div class="text-2xl font-bold gradient-text">CryptoHub</div> -->
-          <div class="text-2xl font-bold text-white">Group 05</div>
-          <div class="hidden md:flex space-x-8">
-            <a
-              href="#home"
-              class="nav-link hover:text-crypto-accent transition-colors"
-              >Home</a
-            >
-            <a
-              href="#docs"
-              class="nav-link hover:text-crypto-accent transition-colors"
-              >Docs</a
-            >
-            <a
-              href="#shift-cipher"
-              class="nav-link hover:text-crypto-accent transition-colors"
-              >Shift Cipher</a
-            >
-            <a
-              href="#rsa"
-              class="nav-link hover:text-crypto-accent transition-colors"
-              >RSA</a
-            >
-            <a
-              href="#team"
-              class="nav-link hover:text-crypto-accent transition-colors"
-              >Team</a
-            >
-          </div>
-          <button id="mobile-menu-btn" class="md:hidden">
-            <svg
-              class="w-6 h-6"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M4 6h16M4 12h16M4 18h16"
-              ></path>
-            </svg>
-          </button>
+<body class="gradient-primary text-white">
+  <!-- Navigation -->
+  <nav class="fixed top-0 w-full z-50 glass-effect">
+    <div class="container mx-auto px-6 py-4">
+      <div class="flex justify-between items-center">
+        <!-- <div class="text-2xl font-bold gradient-text">CryptoHub</div> -->
+        <div class="text-2xl font-bold text-white">Group 05</div>
+        <div class="hidden md:flex space-x-8">
+          <a href="#home" class="nav-link hover:text-crypto-accent transition-colors">Home</a>
+          <a href="#docs" class="nav-link hover:text-crypto-accent transition-colors">Docs</a>
+          <a href="#shift-cipher" class="nav-link hover:text-crypto-accent transition-colors">Shift Cipher</a>
+          <a href="#rsa" class="nav-link hover:text-crypto-accent transition-colors">RSA</a>
+          <a href="#team" class="nav-link hover:text-crypto-accent transition-colors">Team</a>
         </div>
-        <div id="mobile-menu" class="hidden md:hidden mt-4 space-y-2">
-          <a
-            href="#home"
-            class="block py-2 hover:text-crypto-accent transition-colors"
-            >Home</a
-          >
-          <a
-            href="#docs"
-            class="block py-2 hover:text-crypto-accent transition-colors"
-            >Docs</a
-          >
-          <a
-            href="#rsa"
-            class="block py-2 hover:text-crypto-accent transition-colors"
-            >RSA</a
-          >
-          <a
-            href="#shift-cipher"
-            class="block py-2 hover:text-crypto-accent transition-colors"
-            >Shift Cipher</a
-          >
-          <a
-            href="#team"
-            class="block py-2 hover:text-crypto-accent transition-colors"
-            >Team</a
-          >
-        </div>
+        <button id="mobile-menu-btn" class="md:hidden">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+          </svg>
+        </button>
       </div>
-    </nav>
+      <div id="mobile-menu" class="hidden md:hidden mt-4 space-y-2">
+        <a href="#home" class="block py-2 hover:text-crypto-accent transition-colors">Home</a>
+        <a href="#docs" class="block py-2 hover:text-crypto-accent transition-colors">Docs</a>
+        <a href="#rsa" class="block py-2 hover:text-crypto-accent transition-colors">RSA</a>
+        <a href="#shift-cipher" class="block py-2 hover:text-crypto-accent transition-colors">Shift Cipher</a>
+        <a href="#team" class="block py-2 hover:text-crypto-accent transition-colors">Team</a>
+      </div>
+    </div>
+  </nav>
 
-    <!-- Hero Section -->
-    <section
-      id="home"
-      class="min-h-screen flex items-center justify-center pt-20"
-    >
-      <div class="container mx-auto px-6 text-center">
-        <!-- <h1 class="text-6xl md:text-8xl font-bold mb-6 gradient-text animate-pulse">
+  <!-- Hero Section -->
+  <section id="home" class="min-h-screen flex items-center justify-center pt-20">
+    <div class="container mx-auto px-6 text-center">
+      <!-- <h1 class="text-6xl md:text-8xl font-bold mb-6 gradient-text animate-pulse">
                 CRYPTOGRAPHY
             </h1> -->
-        <h1
-          class="text-4xl sm:text-6xl font-bold bg-gradient-to-r from-cyan-400 to-purple-600 bg-clip-text text-transparent text-center px-4 break-words"
-        >
-          CRYPTOGRAPHY
-        </h1>
-        <p class="text-xl md:text-5xl font-bold mb-8 text-gray-300">
-          Encryption and Decryption
-        </p>
-        <p class="text-xl md:text-3xl font-bold mb-8 text-gray-300">
-          ITE G10 M1
-        </p>
-        <p class="text-xl md:text-3xl font-bold mb-8 text-gray-300 uppercase">
-          Lecture : Lim SeyHa
-        </p>
-      </div>
-    </section>
+      <h1
+        class="text-4xl sm:text-6xl font-bold bg-gradient-to-r from-cyan-400 to-purple-600 bg-clip-text text-transparent text-center px-4 break-words">
+        CRYPTOGRAPHY
+      </h1>
+      <p class="text-xl md:text-5xl font-bold mb-8 text-gray-300">
+        Encryption and Decryption
+      </p>
+      <p class="text-xl md:text-3xl font-bold mb-8 text-gray-300">
+        ITE G10 M1
+      </p>
+      <p class="text-xl md:text-3xl font-bold mb-8 text-gray-300 uppercase">
+        Lecture : Lim SeyHa
+      </p>
+    </div>
+  </section>
 
-    <!-- Documentation Section -->
-    <!-- <section id="docs" class="py-20 bg-black bg-opacity-30"> -->
-    <section id="docs" class="py-20">
-      <div class="container mx-auto px-6">
-        <h2
-          data-aos="fade-up"
-          data-aos-duration="500"
-          class="text-4xl font-bold text-center mb-12 pb-1 gradient-text"
-        >
-          What is Cryptography?
+  <!-- Documentation Section -->
+  <!-- <section id="docs" class="py-20 bg-black bg-opacity-30"> -->
+  <section id="docs" class="py-20">
+    <div class="container mx-auto px-6">
+      <h2 data-aos="fade-up" data-aos-duration="500" class="text-4xl font-bold text-center mb-12 pb-1 gradient-text">
+        What is Cryptography?
+      </h2>
+      <div class="max-w-4xl mx-auto">
+        <div data-aos="fade-up" data-aos-duration="500" class="glass-effect p-8 rounded-lg mb-8">
+          <p class="text-lg leading-relaxed mb-6">
+            Cryptography is the science of protecting information by transforming
+            it into a secure format that can only be understood or decoded by someone
+            who has special knowledge (usually called a key).
+          </p>
+          <p class="text-lg leading-relaxed mb-6">
+            Modern cryptography exists at the intersection of the disciplines
+            of mathematics, computer science, electrical engineering,
+            communication science, and physics. Applications of cryptography
+            include electronic commerce, chip-based payment cards, digital
+            currencies, computer passwords, and military communications.
+          </p>
+        </div>
+
+
+        <h2 data-aos="fade-up" data-aos-duration="500" class="text-4xl font-bold text-center mb-12 pb-1 gradient-text">
+          What is Classical Cryptography?
         </h2>
-        <div class="max-w-4xl mx-auto">
-          <div
-            data-aos="fade-up"
-            data-aos-duration="500"
-            class="glass-effect p-8 rounded-lg mb-8"
-          >
-            <p class="text-lg leading-relaxed mb-6">
-              Cryptography is the practice and study of techniques for secure
-              communication in the presence of adversarial behavior. It is about
-              constructing and analyzing protocols that prevent third parties or
-              the public from reading private messages.
-            </p>
-            <p class="text-lg leading-relaxed mb-6">
-              Modern cryptography exists at the intersection of the disciplines
-              of mathematics, computer science, electrical engineering,
-              communication science, and physics. Applications of cryptography
-              include electronic commerce, chip-based payment cards, digital
-              currencies, computer passwords, and military communications.
-            </p>
-          </div>
+        <div data-aos="fade-up" data-aos-duration="500" class="glass-effect p-8 rounded-lg mb-8">
+          <p class="text-lg leading-relaxed mb-6">
+            Classical cryptography refers to the method of encrypting and
+            decrypting message. It used for transforming plain text into
+            ciphertext to keep information secret using mathematical algorithms techniques.
+          </p>
+        </div>
 
-          <div class="grid md:grid-cols-2 gap-8">
+        <!-- <div class="grid md:grid-cols-2 gap-8">
             <div
               data-aos="fade-up"
               data-aos-duration="500"
@@ -226,295 +177,201 @@
                 secret keys. RSA is a prime example.
               </p>
             </div>
-          </div>
-        </div>
+          </div> -->
       </div>
-    </section>
+    </div>
+  </section>
 
-    <!-- Shift Cipher Section -->
-    <!-- <section id="shift-cipher" class="py-20 bg-black bg-opacity-30"> -->
-    <section id="shift-cipher" class="py-20">
-      <div class="container mx-auto px-6">
-        <h2
-          data-aos="fade-up"
-          data-aos-duration="500"
-          class="text-4xl font-bold text-center mb-12 gradient-text"
-        >
-          Shift Cipher (Caesar Cipher)
-        </h2>
-        <div class="max-w-6xl mx-auto">
-          <div
-            data-aos="fade-up"
-            data-aos-duration="500"
-            class="glass-effect p-8 rounded-lg mb-8"
-          >
-            <p class="text-lg leading-relaxed mb-4">
-              The Caesar cipher, also known as a shift cipher, is one of the
-              simplest and most widely known encryption techniques. It is a type
-              of substitution cipher in which each letter in the plaintext is
-              replaced by a letter some fixed number of positions down the
-              alphabet.
-            </p>
-            <p class="text-lg leading-relaxed">
-              For example, with a shift of 3, A would be encoded as D, B would
-              become E, and so on. This cipher is named after Julius Caesar, who
-              allegedly used it in his private correspondence.
-            </p>
-          </div>
-
-          <div
-            data-aos="fade-up"
-            data-aos-duration="500"
-            class="glass-effect p-8 rounded-lg"
-          >
-            <h3 class="text-2xl font-semibold mb-6 text-crypto-accent">
-              Caesar Cipher Tool
-            </h3>
-            <div class="grid md:grid-cols-2 gap-8">
-              <div>
-                <div class="space-y-4">
-                  <div>
-                    <label class="block text-sm font-medium mb-2"
-                      >Message:</label
-                    >
-                    <textarea
-                      id="caesar-message"
-                      rows="4"
-                      class="w-full p-3 bg-gray-800 rounded border border-gray-600 focus:border-crypto-accent focus:outline-none resize-none"
-                      placeholder="Enter your message here..."
-                    ></textarea>
-                  </div>
-                  <div>
-                    <label class="block text-sm font-medium mb-2"
-                      >Shift Value (number):</label
-                    >
-                    <input
-                      type=""
-                      id="caesar-shift"
-                      min="0"
-                      max="25"
-                      value="3"
-                      class="w-full p-3 bg-gray-800 rounded border border-gray-600 focus:border-crypto-accent focus:outline-none"
-                    />
-                  </div>
-                  <div class="grid grid-cols-2 gap-4">
-                    <button
-                      onclick="encryptCaesar()"
-                      class="bg-green-600 text-white font-semibold py-3 rounded hover:bg-green-500 transition-colors"
-                    >
-                      Encrypt
-                    </button>
-                    <button
-                      onclick="decryptCaesar()"
-                      class="bg-red-600 text-white font-semibold py-3 rounded hover:bg-red-500 transition-colors"
-                    >
-                      Decrypt
-                    </button>
-                  </div>
-                </div>
-              </div>
-              <div>
-                <div>
-                  <label class="block text-sm font-medium mb-2">Result:</label>
-                  <textarea
-                    id="caesar-result"
-                    rows="4"
-                    class="w-full p-3 bg-gray-800 rounded border border-gray-600 resize-none"
-                    readonly
-                    placeholder="Result will appear here..."
-                  ></textarea>
-                </div>
-                <div class="mt-4 p-4 bg-gray-800 rounded">
-                  <h4 class="font-semibold mb-2">Alphabet Reference:</h4>
-                  <div class="text-sm space-y-1">
-                    <div>
-                      Original: A B C D E F G H I J K L M N O P Q R S T U V W X
-                      Y Z
-                    </div>
-                    <div id="shifted-alphabet">
-                      Shifted: A B C D E F G H I J K L M N O P Q R S T U V W X Y
-                      Z
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+  <!-- Shift Cipher Section -->
+  <!-- <section id="shift-cipher" class="py-20 bg-black bg-opacity-30"> -->
+  <section id="shift-cipher" class="py-20">
+    <div class="container mx-auto px-6">
+      <h2 data-aos="fade-up" data-aos-duration="500" class="text-4xl font-bold text-center mb-12 gradient-text">
+        Shift Cipher (Caesar Cipher)
+      </h2>
+      <div class="max-w-6xl mx-auto">
+        <div data-aos="fade-up" data-aos-duration="500" class="glass-effect p-8 rounded-lg mb-8">
+          <p class="text-lg leading-relaxed mb-4">
+            The Caesar cipher, also known as a shift cipher, is one of the
+            simplest and most widely known encryption techniques. It is a type
+            of substitution cipher in which each letter in the plaintext is
+            replaced by a letter some fixed number of positions down the
+            alphabet.
+          </p>
+          <p class="text-lg leading-relaxed">
+            For example, with a shift of 3, A would be encoded as D, B would
+            become E, and so on. This cipher is named after Julius Caesar, who
+            allegedly used it in his private correspondence.
+          </p>
         </div>
-      </div>
-    </section>
 
-    <!-- RSA Section -->
-    <section id="rsa" class="py-20">
-      <div class="container mx-auto px-6">
-        <h2
-          data-aos="fade-up"
-          data-aos-duration="500"
-          class="text-4xl font-bold text-center mb-12 pb-1 gradient-text"
-        >
-          RSA Cryptography
-        </h2>
-        <div class="max-w-6xl mx-auto">
-          <div
-            data-aos="fade-up"
-            data-aos-duration="500"
-            class="glass-effect p-8 rounded-lg mb-8"
-          >
-            <p class="text-lg leading-relaxed mb-4">
-              RSA (Rivest-Shamir-Adleman) is one of the first public-key
-              cryptosystems and is widely used for secure data transmission. The
-              security of RSA relies on the practical difficulty of factoring
-              the product of two large prime numbers.
-            </p>
-            <p class="text-lg leading-relaxed">
-              In RSA, you have a public key (n, e) and a private key (n, d). The
-              public key can be shared openly, while the private key must be
-              kept secret.
-            </p>
-          </div>
-
-          <div
-            data-aos="fade-up"
-            data-aos-duration="500"
-            class="glass-effect p-8 rounded-lg"
-          >
-            <h3 class="text-2xl font-semibold mb-6 text-crypto-accent">
-              RSA Calculator
-            </h3>
-            <div class="grid md:grid-cols-2 gap-8">
-              <!-- Left: Key Generation Form -->
-              <div>
-                <h4 class="text-xl font-semibold mb-4">Key Generation</h4>
-                <div class="space-y-4">
-                  <div>
-                    <label class="block text-sm font-medium mb-2"
-                      >Prime p:</label
-                    >
-                    <input
-                      type="number"
-                      id="prime-p"
-                      class="w-full p-3 bg-gray-800 rounded border border-gray-600 focus:border-crypto-accent focus:outline-none"
-                      placeholder="Enter prime number"
-                    />
-                  </div>
-                  <div>
-                    <label class="block text-sm font-medium mb-2"
-                      >Prime q:</label
-                    >
-                    <input
-                      type="number"
-                      id="prime-q"
-                      class="w-full p-3 bg-gray-800 rounded border border-gray-600 focus:border-crypto-accent focus:outline-none"
-                      placeholder="Enter prime number"
-                    />
-                  </div>
-                  <button
-                    onclick="generateRSAKeys()"
-                    class="w-full bg-crypto-accent text-black font-semibold py-3 rounded hover:bg-blue-400 transition-colors"
-                  >
-                    Generate Keys
-                  </button>
-                </div>
-              </div>
-              <!-- Right: RSA Key Output -->
-              <div class="pl-12">
-                <h4 class="text-xl font-semibold mb-4">RSA Keys</h4>
-                <div id="rsa-keys" class="space-y-2 text-sm"></div>
-              </div>
-            </div>
-            <!-- Below: Encryption/Decryption UI -->
-            <div class="mt-10">
-              <h4 class="text-xl font-semibold mb-4">
-                Encryption / Decryption
-              </h4>
-              <div class="grid md:grid-cols-2 gap-8">
-                <!-- Encryption Side -->
+        <div data-aos="fade-up" data-aos-duration="500" class="glass-effect p-8 rounded-lg">
+          <h3 class="text-2xl font-semibold mb-6 text-crypto-accent">
+            Caesar Cipher Tool
+          </h3>
+          <div class="grid md:grid-cols-2 gap-8">
+            <div>
+              <div class="space-y-4">
                 <div>
-                  <label class="block text-sm font-medium mb-2"
-                    >Message to Encrypt:</label
-                  >
-                  <input
-                    type="text"
-                    id="rsa-encrypt-message"
-                    class="w-full p-3 bg-gray-800 rounded border border-gray-600 focus:border-crypto-accent focus:outline-none"
-                    placeholder="Enter message to encrypt"
-                  />
-                  <label class="block text-sm font-medium mb-2 mt-4"
-                    >Public Key (e):</label
-                  >
-                  <input
-                    type="number"
-                    id="rsa-encrypt-e"
-                    class="w-full p-3 bg-gray-800 rounded border border-gray-600 focus:border-crypto-accent focus:outline-none"
-                    placeholder="Enter public key e"
-                  />
-                  <button
-                    onclick="encryptRSA()"
-                    class="mt-4 w-full bg-green-600 text-white font-semibold py-3 rounded hover:bg-green-500 transition-colors"
-                  >
+                  <label class="block text-sm font-medium mb-2">Message:</label>
+                  <textarea id="caesar-message" rows="4"
+                    class="w-full p-3 bg-gray-800 rounded border border-gray-600 focus:border-crypto-accent focus:outline-none resize-none"
+                    placeholder="Enter your message here..."></textarea>
+                </div>
+                <div>
+                  <label class="block text-sm font-medium mb-2">Shift Value (number):</label>
+                  <input type="" id="caesar-shift" min="0" max="25" value="3"
+                    class="w-full p-3 bg-gray-800 rounded border border-gray-600 focus:border-crypto-accent focus:outline-none" />
+                </div>
+                <div class="grid grid-cols-2 gap-4">
+                  <button onclick="encryptCaesar()"
+                    class="bg-green-600 text-white font-semibold py-3 rounded hover:bg-green-500 transition-colors">
                     Encrypt
                   </button>
-                  <div
-                    id="rsa-encrypt-result"
-                    class="mt-6 p-4 bg-gray-800 rounded min-h-[80px]"
-                  ></div>
-                </div>
-                <!-- Decryption Side -->
-                <div>
-                  <label class="block text-sm font-medium mb-2"
-                    >Message to Decrypt:</label
-                  >
-                  <input
-                    type="text"
-                    id="rsa-decrypt-message"
-                    class="w-full p-3 bg-gray-800 rounded border border-gray-600 focus:border-crypto-accent focus:outline-none"
-                    placeholder="Enter message to decrypt (number)"
-                  />
-                  <label class="block text-sm font-medium mb-2 mt-4"
-                    >Private Key (d):</label
-                  >
-                  <input
-                    type="number"
-                    id="rsa-decrypt-d"
-                    class="w-full p-3 bg-gray-800 rounded border border-gray-600 focus:border-crypto-accent focus:outline-none"
-                    placeholder="Enter private key d"
-                  />
-                  <button
-                    onclick="decryptRSA()"
-                    class="mt-4 w-full bg-red-600 text-white font-semibold py-3 rounded hover:bg-red-500 transition-colors"
-                  >
+                  <button onclick="decryptCaesar()"
+                    class="bg-red-600 text-white font-semibold py-3 rounded hover:bg-red-500 transition-colors">
                     Decrypt
                   </button>
-                  <div
-                    id="rsa-decrypt-result"
-                    class="mt-6 p-4 bg-gray-800 rounded min-h-[80px]"
-                  ></div>
+                </div>
+              </div>
+            </div>
+            <div>
+              <div>
+                <label class="block text-sm font-medium mb-2">Result:</label>
+                <textarea id="caesar-result" rows="4"
+                  class="w-full p-3 bg-gray-800 rounded border border-gray-600 resize-none" readonly
+                  placeholder="Result will appear here..."></textarea>
+              </div>
+              <div class="mt-4 p-4 bg-gray-800 rounded">
+                <h4 class="font-semibold mb-2">Alphabet Reference:</h4>
+                <div class="text-sm space-y-1">
+                  <div>
+                    Original: A B C D E F G H I J K L M N O P Q R S T U V W X
+                    Y Z
+                  </div>
+                  <div id="shifted-alphabet">
+                    Shifted: A B C D E F G H I J K L M N O P Q R S T U V W X Y
+                    Z
+                  </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
       </div>
-    </section>
+    </div>
+  </section>
 
-    <!-- Team Section -->
-    <section id="team" class="py-20">
-      <div class="container mx-auto px-6">
-        <h2
-          data-aos="fade-up"
-          data-aos-duration="500"
-          class="text-4xl font-bold text-center mb-12 gradient-text"
-        >
-          Our Team
-        </h2>
-        <div
-          data-aos="fade-up"
-          data-aos-duration="500"
-          class="grid md:grid-cols-6 gap-8 max-w-6xl mx-auto"
-        >
-          <div class="glass-effect p-6 rounded-lg text-center crypto-glow">
-            <!-- SVG in top-right corner -->
-            <!-- <div class="absolute top-2 right-2 text-crypto-accent">
+  <!-- RSA Section -->
+  <section id="rsa" class="py-20">
+    <div class="container mx-auto px-6">
+      <h2 data-aos="fade-up" data-aos-duration="500" class="text-4xl font-bold text-center mb-12 pb-1 gradient-text">
+        RSA Cryptography
+      </h2>
+      <div class="max-w-6xl mx-auto">
+        <div data-aos="fade-up" data-aos-duration="500" class="glass-effect p-8 rounded-lg mb-8">
+          <p class="text-lg leading-relaxed mb-4">
+            RSA (Rivest-Shamir-Adleman) is one of the first public-key
+            cryptosystems and is widely used for secure data transmission. The
+            security of RSA relies on the practical difficulty of factoring
+            the product of two large prime numbers.
+          </p>
+          <p class="text-lg leading-relaxed">
+            In RSA, you have a public key (n, e) and a private key (n, d). The
+            public key can be shared openly, while the private key must be
+            kept secret.
+          </p>
+        </div>
+
+        <div data-aos="fade-up" data-aos-duration="500" class="glass-effect p-8 rounded-lg">
+          <h3 class="text-2xl font-semibold mb-6 text-crypto-accent">
+            RSA Calculator
+          </h3>
+          <div class="grid md:grid-cols-2 gap-8">
+            <!-- Left: Key Generation Form -->
+            <div>
+              <h4 class="text-xl font-semibold mb-4">Key Generation</h4>
+              <div class="space-y-4">
+                <div>
+                  <label class="block text-sm font-medium mb-2">Prime p:</label>
+                  <input type="number" id="prime-p"
+                    class="w-full p-3 bg-gray-800 rounded border border-gray-600 focus:border-crypto-accent focus:outline-none"
+                    placeholder="Enter prime number" />
+                </div>
+                <div>
+                  <label class="block text-sm font-medium mb-2">Prime q:</label>
+                  <input type="number" id="prime-q"
+                    class="w-full p-3 bg-gray-800 rounded border border-gray-600 focus:border-crypto-accent focus:outline-none"
+                    placeholder="Enter prime number" />
+                </div>
+                <button onclick="generateRSAKeys()"
+                  class="w-full bg-crypto-accent text-black font-semibold py-3 rounded hover:bg-blue-400 transition-colors">
+                  Generate Keys
+                </button>
+              </div>
+            </div>
+            <!-- Right: RSA Key Output -->
+            <div class="pl-12">
+              <h4 class="text-xl font-semibold mb-4">RSA Keys</h4>
+              <div id="rsa-keys" class="space-y-2 text-sm"></div>
+            </div>
+          </div>
+          <!-- Below: Encryption/Decryption UI -->
+          <div class="mt-10">
+            <h4 class="text-xl font-semibold mb-4">
+              Encryption / Decryption
+            </h4>
+            <div class="grid md:grid-cols-2 gap-8">
+              <!-- Encryption Side -->
+              <div>
+                <label class="block text-sm font-medium mb-2">Message to Encrypt:</label>
+                <input type="text" id="rsa-encrypt-message"
+                  class="w-full p-3 bg-gray-800 rounded border border-gray-600 focus:border-crypto-accent focus:outline-none"
+                  placeholder="Enter message to encrypt" />
+                <label class="block text-sm font-medium mb-2 mt-4">Public Key (e):</label>
+                <input type="number" id="rsa-encrypt-e"
+                  class="w-full p-3 bg-gray-800 rounded border border-gray-600 focus:border-crypto-accent focus:outline-none"
+                  placeholder="Enter public key e" />
+                <button onclick="encryptRSA()"
+                  class="mt-4 w-full bg-green-600 text-white font-semibold py-3 rounded hover:bg-green-500 transition-colors">
+                  Encrypt
+                </button>
+                <div id="rsa-encrypt-result" class="mt-6 p-4 bg-gray-800 rounded min-h-[80px]"></div>
+              </div>
+              <!-- Decryption Side -->
+              <div>
+                <label class="block text-sm font-medium mb-2">Message to Decrypt:</label>
+                <input type="text" id="rsa-decrypt-message"
+                  class="w-full p-3 bg-gray-800 rounded border border-gray-600 focus:border-crypto-accent focus:outline-none"
+                  placeholder="Enter message to decrypt (number)" />
+                <label class="block text-sm font-medium mb-2 mt-4">Private Key (d):</label>
+                <input type="number" id="rsa-decrypt-d"
+                  class="w-full p-3 bg-gray-800 rounded border border-gray-600 focus:border-crypto-accent focus:outline-none"
+                  placeholder="Enter private key d" />
+                <button onclick="decryptRSA()"
+                  class="mt-4 w-full bg-red-600 text-white font-semibold py-3 rounded hover:bg-red-500 transition-colors">
+                  Decrypt
+                </button>
+                <div id="rsa-decrypt-result" class="mt-6 p-4 bg-gray-800 rounded min-h-[80px]"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Team Section -->
+  <section id="team" class="py-20">
+    <div class="container mx-auto px-6">
+      <h2 data-aos="fade-up" data-aos-duration="500" class="text-4xl font-bold text-center mb-12 gradient-text">
+        Our Team
+      </h2>
+      <div data-aos="fade-up" data-aos-duration="500" class="grid md:grid-cols-6 gap-8 max-w-6xl mx-auto">
+        <!-- <div class="glass-effect p-4 rounded-lg text-center crypto-glow"> -->
+        <div class="glass-effect p-4 rounded-lg text-center rgb-glow">
+          <!-- SVG in top-right corner -->
+          <!-- <div class="absolute top-2 right-2 text-crypto-accent">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="red" viewBox="0 0 24 24" stroke-width="1.5"
                             stroke="" class="w-6 h-6">
                             <path stroke-linecap="round" stroke-linejoin="round"
@@ -522,114 +379,115 @@
                         </svg>
                     </div> -->
 
-            <!-- Main content -->
-            <div
+          <!-- Main content -->
+          <!-- <div
               class="w-24 h-24 bg-gradient-to-r from-crypto-accent to-purple-500 rounded-full mx-auto mb-4 flex items-center justify-center text-2xl font-bold"
             >
-              <!-- AJ -->
+              AJ
               <img
                 src=""
                 alt="channak"
                 class="w-full h-full object-cover rounded-full"
               />
-            </div>
-            <h3 class="text-xl font-semibold mb-2">Channak</h3>
-            <p class="text-crypto-accent mb-2">Team Leader</p>
-            <!-- <p class="text-sm text-gray-400">Cryptography Specialist</p> -->
-          </div>
-          <div class="glass-effect p-6 rounded-lg text-center crypto-glow">
-            <div
+            </div> -->
+          <h3 class="text-xl font-semibold mb-2">Channak</h3>
+          <p class="text-crypto-accent mb-2">Team Leader</p>
+          <!-- <p class="text-sm text-gray-400">Cryptography Specialist</p> -->
+        </div>
+        <div class="glass-effect p-4 rounded-lg text-center crypto-glow">
+          <!-- <div
               class="w-24 h-24 bg-gradient-to-r from-crypto-accent to-purple-500 rounded-full mx-auto mb-4 flex items-center justify-center text-2xl font-bold"
             >
-              <!-- AJ -->
+              AJ
               <img
                 src=""
                 alt="me"
                 class="w-full h-full object-cover rounded-full"
               />
-            </div>
-            <h3 class="text-xl font-semibold mb-2">So Pheaktra</h3>
-            <p class="text-crypto-accent mb-2">Developer</p>
-            <!-- <p class="text-sm text-gray-400">Algorithm Implementation</p> -->
-          </div>
-          <div class="glass-effect p-6 rounded-lg text-center crypto-glow">
-            <div
+            </div> -->
+          <h3 class="text-xl font-semibold mb-2">So Pheaktra</h3>
+          <p class="text-crypto-accent mb-2">Developer</p>
+          <!-- <p class="text-sm text-gray-400">Algorithm Implementation</p> -->
+        </div>
+        <div class="glass-effect p-6 rounded-lg text-center crypto-glow">
+          <!-- <div
               class="w-24 h-24 bg-gradient-to-r from-crypto-accent to-purple-500 rounded-full mx-auto mb-4 flex items-center justify-center text-2xl font-bold"
             >
-              <!-- AJ -->
+              AJ
               <img
                 src=""
                 alt="vichet"
                 class="w-full h-full object-cover rounded-full"
               />
-            </div>
-            <h3 class="text-xl font-semibold mb-2">Choub Vichet</h3>
-            <p class="text-crypto-accent mb-2">Researcher</p>
-            <!-- <p class="text-sm text-gray-400">Security Analysis</p> -->
-          </div>
-          <div class="glass-effect p-6 rounded-lg text-center crypto-glow">
-            <div
+            </div> -->
+          <h3 class="text-xl font-semibold mb-2">Vichet</h3>
+          <p class="text-crypto-accent mb-2">Researcher</p>
+          <!-- <p class="text-sm text-gray-400">Security Analysis</p> -->
+        </div>
+        <div class="glass-effect p-6 rounded-lg text-center crypto-glow">
+          <!-- <div
               class="w-24 h-24 bg-gradient-to-r from-crypto-accent to-purple-500 rounded-full mx-auto mb-4 flex items-center justify-center text-2xl font-bold"
             >
-              <!-- AJ -->
+              AJ
               <img
                 src=""
                 alt="sang"
                 class="w-full h-full object-cover rounded-full"
               />
-            </div>
-            <h3 class="text-xl font-semibold mb-2">Tey Sang</h3>
-            <p class="text-crypto-accent mb-2">Researcher</p>
-            <!-- <p class="text-sm text-gray-400">UI/UX Specialist</p> -->
-          </div>
-          <div class="glass-effect p-6 rounded-lg text-center crypto-glow">
-            <div
+            </div> -->
+          <h3 class="text-xl font-semibold mb-2">Tey Sang</h3>
+          <p class="text-crypto-accent mb-2">Researcher</p>
+          <!-- <p class="text-sm text-gray-400">UI/UX Specialist</p> -->
+        </div>
+        <div class="glass-effect p-6 rounded-lg text-center crypto-glow">
+          <!-- <div
               class="w-24 h-24 bg-gradient-to-r from-crypto-accent to-purple-500 rounded-full mx-auto mb-4 flex items-center justify-center text-2xl font-bold"
             >
-              <!-- AJ -->
+              AJ
               <img
                 src=""
                 alt="mengkim"
                 class="w-full h-full object-cover rounded-full"
               />
-            </div>
-            <h3 class="text-xl font-semibold mb-2">MengKim</h3>
-            <p class="text-crypto-accent mb-2">Researcher</p>
-            <!-- <p class="text-sm text-gray-400">Quality Assurance</p> -->
-          </div>
-          <div class="glass-effect p-6 rounded-lg text-center crypto-glow">
-            <div
+            </div> -->
+          <h3 class="text-xl font-semibold mb-2">MengKim</h3>
+          <p class="text-crypto-accent mb-2">Researcher</p>
+          <!-- <p class="text-sm text-gray-400">Quality Assurance</p> -->
+        </div>
+        <div class="glass-effect p-6 rounded-lg text-center crypto-glow">
+          <!-- <div
               class="w-24 h-24 bg-gradient-to-r from-crypto-accent to-purple-500 rounded-full mx-auto mb-4 flex items-center justify-center text-2xl font-bold"
             >
-              <!-- AJ -->
+              AJ
               <img
                 src=""
                 alt="bunna"
                 class="w-full h-full object-cover rounded-full"
               />
-            </div>
-            <h3 class="text-xl font-semibold mb-2">Chen Bunna</h3>
-            <p class="text-crypto-accent mb-2">Researcher</p>
-            <!-- <p class="text-sm text-gray-400">Quality Assurance</p> -->
-          </div>
+            </div> -->
+          <h3 class="text-xl font-semibold mb-2">Chen Bunna</h3>
+          <p class="text-crypto-accent mb-2">Researcher</p>
+          <!-- <p class="text-sm text-gray-400">Quality Assurance</p> -->
         </div>
       </div>
-    </section>
+    </div>
+  </section>
 
-    <!-- Footer -->
-    <footer class="bg-black bg-opacity-50 py-8">
-      <div class="container mx-auto px-6 text-center">
-        <p class="text-gray-400">© 2025 Group 05 Team. All rights reserved.</p>
-        <p class="text-gray-500 mt-2">
-          Exploring the fascinating world of cryptography
-        </p>
-      </div>
-    </footer>
+  <!-- Footer -->
+  <footer class="bg-black bg-opacity-50 py-8">
+    <div class="container mx-auto px-6 text-center">
+      <p class="text-gray-400">© 2025 Group 05 Team. All rights reserved.</p>
+      <p class="text-gray-500 mt-2">
+        Exploring the fascinating world of cryptography
+      </p>
+    </div>
+  </footer>
 
-    <script src="script.js"></script>
-    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
-    <script>
-      AOS.init();
-    </script>
-  </body>
+  <script src="script.js"></script>
+  <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+  <script>
+    AOS.init();
+  </script>
+</body>
+
 </html>
