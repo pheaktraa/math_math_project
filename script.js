@@ -75,6 +75,12 @@ function generateRSAKeys() {
     const n = p * q;
     const phi = (p - 1) * (q - 1);
 
+    // Check if n is too small
+    if (n < 128) {
+        document.getElementById('rsa-keys').innerHTML = '<p class="text-red-400 text-2xl">n is too small! Please choose larger primes so n > 128</p>';
+        return;
+    }
+
     // Find e (commonly 65537, but only if valid)
     let e = 65537;
     if (e >= phi || gcd(e, phi) !== 1) {
