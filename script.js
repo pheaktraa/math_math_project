@@ -202,8 +202,8 @@ function decryptRSA() {
 
     // Display result in the HTML
     document.getElementById('rsa-decrypt-result').innerHTML = `
-        <p><strong>Encrypted Input:</strong> [${encryptedArr.join(', ')}]</p>
-        <p><strong>Decrypted ASCII Codes:</strong> [${decryptedCodes.join(', ')}]</p>
+        <p><strong>Encrypted Input:</strong> ${encryptedArr.join(', ')}</p>
+        <p><strong>Decrypted ASCII Codes:</strong> ${decryptedCodes.join(', ')}</p>
         <p><strong>Decrypted Message:</strong> ${decryptedMessage}</p>
         <p class="text-green-400">✓ Message decrypted successfully!</p>
     `;
@@ -362,4 +362,131 @@ window.addEventListener('scroll', function() {
             link.classList.add('text-crypto-accent');
         }
     });
+});
+
+
+
+
+
+
+
+
+
+
+/*
+File: script.js
+Description: Powers the interactive features of the cryptography website, 
+including the real-time Caesar Cipher tool.
+*/
+
+// Wait for the DOM to be fully loaded before running the script
+document.addEventListener('DOMContentLoaded', () => {
+
+  // --- Mobile Menu Functionality ---
+  const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+  const mobileMenu = document.getElementById('mobile-menu');
+
+  if (mobileMenuBtn && mobileMenu) {
+    mobileMenuBtn.addEventListener('click', () => {
+      mobileMenu.classList.toggle('hidden');
+    });
+  }
+
+  // --- Caesar Cipher Tool Functionality ---
+
+  // Get references to all the necessary HTML elements
+  const caesarMessageInput = document.getElementById('caesar-message');
+  const caesarShiftInput = document.getElementById('caesar-shift');
+  const caesarResultOutput = document.getElementById('caesar-result');
+  const shiftedAlphabetDisplay = document.getElementById('shifted-alphabet');
+
+  const originalAlphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+
+  /**
+   * Updates the 'Alphabet Reference' box in real-time.
+   * This function is called whenever the shift value changes.
+   */
+  const updateAlphabetReference = () => {
+    // Sanitize the shift value to be an integer between 0 and 25
+    let shift = parseInt(caesarShiftInput.value, 10);
+    if (isNaN(shift)) {
+      shift = 0;
+    }
+    shift = shift % 26; // Use modulo to handle numbers > 25
+
+    // Generate the shifted alphabet string
+    const shiftedAlphabet = originalAlphabet.slice(shift) + originalAlphabet.slice(0, shift);
+    
+    // Format for display with spaces
+    const formattedShiftedAlphabet = shiftedAlphabet.split('').join(' ');
+
+    // Update the HTML content
+    shiftedAlphabetDisplay.innerHTML = `<strong>Shifted:</strong> ${formattedShiftedAlphabet}`;
+  };
+
+  /**
+   * Core logic for the Caesar cipher shift operation.
+   * @param {string} text - The input message.
+   * @param {number} shift - The number of positions to shift.
+   * @param {string} mode - 'encrypt' or 'decrypt'.
+   * @returns {string} - The processed (encrypted or decrypted) text.
+   */
+  const processCaesarCipher = (text, shift, mode) => {
+    if (mode === 'decrypt') {
+      shift = (26 - shift) % 26;
+    }
+
+    let result = "";
+
+    for (let i = 0; i < text.length; i++) {
+      let char = text[i];
+
+      // Process uppercase letters
+      if (char >= 'A' && char <= 'Z') {
+        let charCode = text.charCodeAt(i);
+        let shiftedCode = ((charCode - 65 + shift) % 26) + 65;
+        result += String.fromCharCode(shiftedCode);
+      }
+      // Process lowercase letters
+      else if (char >= 'a' && char <= 'z') {
+        let charCode = text.charCodeAt(i);
+        let shiftedCode = ((charCode - 97 + shift) % 26) + 97;
+        result += String.fromCharCode(shiftedCode);
+      }
+      // Keep non-alphabetic characters as they are
+      else {
+        result += char;
+      }
+    }
+    return result;
+  };
+
+  // --- Global Functions for onclick Handlers ---
+
+  // These functions need to be global to be accessible by the 'onclick' attributes in the HTML.
+  window.encryptCaesar = () => {
+    const message = caesarMessageInput.value;
+    const shift = parseInt(caesarShiftInput.value, 10) % 26;
+    caesarResultOutput.value = processCaesarCipher(message, shift, 'encrypt');
+  };
+
+  window.decryptCaesar = () => {
+    const message = caesarMessageInput.value;
+    const shift = parseInt(caesarShiftInput.value, 10) % 26;
+    caesarResultOutput.value = processCaesarCipher(message, shift, 'decrypt');
+  };
+
+  // --- Event Listeners ---
+
+  // Add an event listener to the shift input field to update the alphabet in real-time.
+  // The 'input' event fires every time the value is changed.
+  if (caesarShiftInput) {
+    caesarShiftInput.addEventListener('input', updateAlphabetReference);
+  }
+
+  // Initial call to set the correct shifted alphabet when the page first loads.
+  updateAlphabetReference();
+
+  // Note: The RSA and Team section functionalities would be added here.
+  // For now, this script fully covers the Caesar Cipher section.
 });
